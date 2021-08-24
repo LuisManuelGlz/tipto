@@ -12,6 +12,7 @@ import PercentageScreen from '../screens/PercentageScreen';
 import IntroScreen from '../screens/IntroScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { IS_INTRODUCTION_KEY } from '../constants/Storage';
+import Colors from '../styles/Colors';
 
 const Stack = createStackNavigator();
 
@@ -50,6 +51,11 @@ const AppNavigator = () => {
       ) : (
         <Stack.Navigator
           screenOptions={{
+            gestureEnabled: true,
+            gestureDirection: 'horizontal',
+            title: '',
+            headerTransparent: true,
+            headerTintColor: Colors.light,
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           }}>
           <Stack.Group>

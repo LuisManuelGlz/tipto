@@ -1,7 +1,7 @@
 import { ImageSourcePropType } from "react-native";
 
-export type SlideItem = {
-  key: string;
+export type Slide = {
+  key: number | string;
   title: string;
   description: string;
   image: ImageSourcePropType;
