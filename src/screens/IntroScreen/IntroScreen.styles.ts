@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import Colors from '../../styles/Colors';
+import { FontFamily } from '../../styles/Font';
 
 export default StyleSheet.create({
   slide: {
@@ -8,17 +9,19 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
+    marginVertical: 64,
     width: 320,
     height: 200,
-    marginVertical: 64,
   },
   title: {
-    fontSize: 32,
-    color: Colors.light,
     textAlign: 'center',
+    fontSize: 32,
+    fontFamily: FontFamily.ComfortaaBold,
+    color: Colors.light,
   },
   description: {
-    color: Colors.light,
     textAlign: 'center',
+    fontFamily: FontFamily.ComfortaaRegular,
+    color: Colors.light,
   },
 });
