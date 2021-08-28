@@ -1,17 +1,12 @@
 import React, { useContext } from 'react';
-import {
-  Image,
-  ListRenderItemInfo,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Image, ListRenderItemInfo, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppIntroSlider from 'react-native-app-intro-slider';
-import Button from '../../components/Button';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { AppContext } from '../../context/AppContext';
 import { IS_INTRODUCTION_KEY } from '../../constants/Storage';
+import Text from '../../components/Text';
 import styles from './IntroScreen.styles';
 import { Slide } from '../../types/slide';
 
@@ -27,7 +22,7 @@ const slides = [
   {
     key: 2,
     title: 'Eating out',
-    description: 'Ideal when you go with your friends to eat out',
+    description: 'Ideal when you go with your\nfriends to eat out',
     image: require('../../assets/breakfast.png'),
     backgroundColor: '#00CBA9',
   },
@@ -66,6 +61,34 @@ const IntroScreen = () => {
 
   const keyExtractor = ({ key }: Slide) => JSON.stringify(key);
 
+  const renderSkipButton = () => {
+    return <Text style={styles.skipButton}>Skip</Text>;
+  };
+
+  const renderPrevButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Icon name="arrow-back" color="rgba(255, 255, 255, 0.9)" size={24} />
+      </View>
+    );
+  };
+
+  const renderNextButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Icon name="arrow-forward" color="rgba(255, 255, 255, 0.9)" size={24} />
+      </View>
+    );
+  };
+
+  const renderDoneButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Icon name="checkmark" color="rgba(255, 255, 255, 0.9)" size={24} />
+      </View>
+    );
+  };
+
   const onDone = () => {
     storeIsIntroduction(false);
   };
@@ -78,6 +101,10 @@ const IntroScreen = () => {
         data={slides}
         showSkipButton
         showPrevButton
+        renderSkipButton={renderSkipButton}
+        renderPrevButton={renderPrevButton}
+        renderNextButton={renderNextButton}
+        renderDoneButton={renderDoneButton}
         onDone={onDone}
       />
     </SafeAreaView>

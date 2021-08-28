@@ -14,7 +14,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { IS_INTRODUCTION_KEY } from '../constants/Storage';
 import Colors from '../styles/Colors';
 
-const Stack = createStackNavigator();
+export type AppStackParamList = {
+  Home: undefined;
+  Intro: undefined;
+  Bill: undefined;
+  Percentage: undefined;
+  People: undefined;
+};
+
+const Stack = createStackNavigator<AppStackParamList>();
 
 const AppNavigator = () => {
   const { isIntroduction, setIsIntroduction } = useContext(AppContext);

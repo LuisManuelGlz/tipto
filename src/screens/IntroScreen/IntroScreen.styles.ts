@@ -16,12 +16,19 @@ export default StyleSheet.create({
   title: {
     textAlign: 'center',
     fontSize: 32,
-    fontFamily: FontFamily.ComfortaaBold,
-    color: Colors.light,
   },
   description: {
     textAlign: 'center',
-    fontFamily: FontFamily.ComfortaaRegular,
-    color: Colors.light,
+  },
+  skipButton: {
+    fontSize: 20,
+  },
+  buttonCircle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(0, 0, 0, .2)',
   },
 });

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Text, TextInput } from 'react-native';
+import { TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../../components/Button';
+import Text from '../../components/Text';
 import Colors from '../../styles/Colors';
 
 const PeopleScreen = () => {
@@ -19,7 +20,7 @@ const PeopleScreen = () => {
         defaultValue="1"
         style={{ width: 100, backgroundColor: 'white' }}
       />
-      <Button title="Calculate" onPress={() => console.log('...')} />
+      <Button title="Done" onPress={() => console.log('...')} />
     </SafeAreaView>
   );
 };

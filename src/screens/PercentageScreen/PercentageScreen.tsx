@@ -1,12 +1,17 @@
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { Text, TextInput } from 'react-native';
+import { TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../../components/Button';
+import Text from '../../components/Text';
+import { AppStackParamList } from '../../navigation/AppNavigator';
 import Colors from '../../styles/Colors';
 
+type PeopleScreenNavigationProp = StackNavigationProp<AppStackParamList, 'People'>;
+
 const PercentageScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<PeopleScreenNavigationProp>();
 
   return (
     <SafeAreaView
@@ -21,7 +26,7 @@ const PercentageScreen = () => {
         keyboardType="decimal-pad"
         style={{ width: 100, backgroundColor: 'white' }}
       />
-      <Button title="Next" onPress={() => navigation.navigate('People')} />
+      <Button title="Done" onPress={() => navigation.navigate('Home')} />
     </SafeAreaView>
   );
 };
