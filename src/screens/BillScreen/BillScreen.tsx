@@ -1,17 +1,28 @@
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { TextInput } from 'react-native';
+import { Image, TextInput } from 'react-native';
+import { RouteProp, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { SharedElement } from 'react-navigation-shared-element';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../../components/Button';
 import Text from '../../components/Text';
 import { AppStackParamList } from '../../navigation/AppNavigator';
 import Colors from '../../styles/Colors';
+import styles from './BillScreen.styles';
 
-type PercentageScreenNavigationProp = StackNavigationProp<AppStackParamList, 'Percentage'>;
+type PercentageScreenNavigationProp = StackNavigationProp<
+  AppStackParamList,
+  'Percentage'
+>;
 
-const BillScreen = () => {
+type Props = {
+  route: RouteProp<AppStackParamList, 'Percentage'>;
+};
+
+const BillScreen = ({ route }: Props) => {
   const navigation = useNavigation<PercentageScreenNavigationProp>();
+
+  const { id, photoSource } = route.params;
 
   return (
     <SafeAreaView
@@ -21,6 +32,9 @@ const BillScreen = () => {
         justifyContent: 'center',
         backgroundColor: Colors.primary,
       }}>
+      <SharedElement id={`item.${id}.photo`}>
+        <Image style={styles.image} source={require('../../assets/receipt.png')} />
+      </SharedElement>
       <Text>What was the total of the bill?</Text>
       <TextInput
         keyboardType="decimal-pad"

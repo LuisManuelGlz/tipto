@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { CardStyleInterpolators } from '@react-navigation/stack';
 import {
-  CardStyleInterpolators,
-  createStackNavigator,
-} from '@react-navigation/stack';
+  createSharedElementStackNavigator,
+  SharedElementCompatRoute,
+} from 'react-navigation-shared-element';
 import { AppContext } from '../context/AppContext';
 import BillScreen from '../screens/BillScreen';
 import HomeScreen from '../screens/HomeScreen';
@@ -17,12 +18,21 @@ import Colors from '../styles/Colors';
 export type AppStackParamList = {
   Home: undefined;
   Intro: undefined;
-  Bill: undefined;
-  Percentage: undefined;
-  People: undefined;
+  Bill: {
+    id: string | number;
+    photoSource: string;
+  };
+  Percentage: {
+    id: string | number;
+    photoSource: string;
+  };
+  People: {
+    id: string | number;
+    photoSource: string;
+  };
 };
 
-const Stack = createStackNavigator<AppStackParamList>();
+const Stack = createSharedElementStackNavigator<AppStackParamList>();
 
 const AppNavigator = () => {
   const { isIntroduction, setIsIntroduction } = useContext(AppContext);
@@ -31,6 +41,7 @@ const AppNavigator = () => {
   const getIsIntroduction = async () => {
     try {
       const value = await AsyncStorage.getItem(IS_INTRODUCTION_KEY);
+
       if (value !== null) {
         setIsIntroduction(false);
       }
@@ -39,8 +50,19 @@ const AppNavigator = () => {
     }
   };
 
+  /**
+   * Get array of shared elements
+   * @param route Screen route
+   * @returns Shared elements
+   */
+  const sharedElementRoute = (route: SharedElementCompatRoute) => {
+    const { id } = route.params;
+    return [`item.${id}.photo`];
+  };
+
   useEffect(() => {
     (async () => {
+      // Get introduction state
       await getIsIntroduction();
       setIsLoading(false);
     })();
@@ -52,6 +74,7 @@ const AppNavigator = () => {
 
   return (
     <NavigationContainer>
+      {/* If is the first time the app is open */}
       {isIntroduction ? (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Intro" component={IntroScreen} />
@@ -66,14 +89,22 @@ const AppNavigator = () => {
             headerTintColor: Colors.light,
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           }}>
-          <Stack.Group>
-            <Stack.Screen name="Home" component={HomeScreen} />
-          </Stack.Group>
-          <Stack.Group>
-            <Stack.Screen name="Bill" component={BillScreen} />
-            <Stack.Screen name="Percentage" component={PercentageScreen} />
-            <Stack.Screen name="People" component={PeopleScreen} />
-          </Stack.Group>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen
+            name="Bill"
+            component={BillScreen}
+            sharedElements={sharedElementRoute}
+          />
+          <Stack.Screen
+            name="Percentage"
+            component={PercentageScreen}
+            sharedElements={sharedElementRoute}
+          />
+          <Stack.Screen
+            name="People"
+            component={PeopleScreen}
+            sharedElements={sharedElementRoute}
+          />
         </Stack.Navigator>
       )}
     </NavigationContainer>
