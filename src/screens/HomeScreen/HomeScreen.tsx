@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -9,11 +9,17 @@ import Button from '../../components/Button';
 import Text from '../../components/Text';
 import styles from './HomeScreen.styles';
 import { AppStackParamList } from '../../navigation/AppNavigator';
+import { AppContext } from '../../context/AppContext';
 
 type AppScreenNavigationProp = StackNavigationProp<AppStackParamList>;
 
 const HomeScreen = () => {
   const navigation = useNavigation<AppScreenNavigationProp>();
+  const { payment } = useContext(AppContext);
+
+  useEffect(() => {
+    console.log(payment);
+  }, [payment]);
 
   return (
     <SafeAreaView style={styles.container}>

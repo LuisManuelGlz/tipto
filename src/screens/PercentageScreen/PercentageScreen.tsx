@@ -10,17 +10,17 @@ import { AppStackParamList } from '../../navigation/AppNavigator';
 import Colors from '../../styles/Colors';
 import styles from './PercentageScreen.styles';
 
-type PercentageScreenNavigationProp = StackNavigationProp<
+type PeopleScreenNavigationProp = StackNavigationProp<
   AppStackParamList,
-  'Percentage'
+  'People'
 >;
 
 type Props = {
-  route: RouteProp<AppStackParamList, 'Percentage'>;
+  route: RouteProp<AppStackParamList, 'People'>;
 };
 
 const PercentageScreen = ({ route }: Props) => {
-  const navigation = useNavigation<PercentageScreenNavigationProp>();
+  const navigation = useNavigation<PeopleScreenNavigationProp>();
 
   const { id, photoSource } = route.params;
 
